@@ -1,0 +1,17 @@
+{
+    "stage": "dev",
+    "env": {
+        "dev": {
+            "maxSpeed": 1
+        },
+        "stg": {
+            "maxSpeed": 1
+        },
+        "prd": {
+            "maxSpeed": 1
+        },
+        "test": {
+            "maxSpeed": 1
+        }
+    }
+}
