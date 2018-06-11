@@ -28,60 +28,84 @@ describe('robot', function(){
 
     // player test cases
 
-    it('Mr Robot connected game', function(){
+    it('Mr Robot connected game - PLACE 0, 0, WEST', function(){
         var _player = player.onConnect(socket.id, 'Mr Robot');
         var message = util.ResponseMessage(_player, { inputId: "" });
-        console.log(message);
         assert.equal(message, "PLACE 0, 0, WEST");
     });
 
-    it('Mr Robot move to right 1 step', function(){
-        var data = { inputId: "right", event: 'onkeydown', state:true };
-        player.onMove(socket.id, data);
-
-        data = { inputId: "right", event: 'onkeyup', state:false };
+    it('Mr Robot direct to right - PLACE 0, 0, NORTH', function(){
+        var data = { inputId: "dright", event: 'onkeydown', state:false };
         player.onMove(socket.id, data, function(_player){
             var message = util.ResponseMessage(_player, data);
-            console.log(message);
-            assert.equal(message, "PLACE 1, 0, EAST");
+            assert.equal(message, "PLACE 0, 0, NORTH");
         });
     });
 
-    it('Mr Robot move to up 1 step', function(){
+
+    it('Mr Robot move forward 1 step - PLACE 0, 1, NORTH', function(){
         var data = { inputId: "up", event: 'onkeydown', state:true };
-        player.onMove(socket.id, data);
-
-        data = { inputId: "up", event: 'onkeyup', state:false };
         player.onMove(socket.id, data, function(_player){
             var message = util.ResponseMessage(_player, data);
-            console.log(message);
-            assert.equal(message, "PLACE 1, 1, NORTH");
+            assert.equal(message, "PLACE 0, 1, NORTH");
         });
     });
 
-    it('Mr Robot move to down 1 step', function(){
+    it('Mr Robot move forward 1 step - PLACE 0, 2, NORTH', function(){
+        var data = { inputId: "up", event: 'onkeydown', state:true };
+        player.onMove(socket.id, data, function(_player){
+            var message = util.ResponseMessage(_player, data);
+            assert.equal(message, "PLACE 0, 2, NORTH");
+        });
+    });
+
+    it('Mr Robot direct to right - PLACE 0, 2, EAST', function(){
+        var data = { inputId: "dright", event: 'onkeydown', state:true };
+        player.onMove(socket.id, data, function(_player){
+            var message = util.ResponseMessage(_player, data);
+            assert.equal(message, "PLACE 0, 2, EAST");
+        });
+    });
+
+    it('Mr Robot move forward 1 step - PLACE 1, 2, EAST', function(){
+        var data = { inputId: "right", event: 'onkeydown', state:true };
+        player.onMove(socket.id, data, function(_player){
+            var message = util.ResponseMessage(_player, data);
+            assert.equal(message, "PLACE 1, 2, EAST");
+        });
+    });
+
+    it('Mr Robot move forward 1 step - PLACE 2, 2, EAST', function(){
+        var data = { inputId: "right", event: 'onkeydown', state:true };
+        player.onMove(socket.id, data, function(_player){
+            var message = util.ResponseMessage(_player, data);
+            assert.equal(message, "PLACE 2, 2, EAST");
+        });
+    });
+
+    it('Mr Robot direct to left - PLACE 2, 2, NORTH', function(){
+        var data = { inputId: "dleft", event: 'onkeydown', state:true };
+        player.onMove(socket.id, data, function(_player){
+            var message = util.ResponseMessage(_player, data);
+            assert.equal(message, "PLACE 2, 2, NORTH");
+        });
+    });
+
+    it('Mr Robot direct to down - PLACE 2, 2, SOUTH', function(){
+        var data = { inputId: "ddown", event: 'onkeydown', state:true };
+        player.onMove(socket.id, data, function(_player){
+            var message = util.ResponseMessage(_player, data);
+            assert.equal(message, "PLACE 2, 2, SOUTH");
+        });
+    });
+
+
+    it('Mr Robot move forward 1 step - PLACE 2, 1, SOUTH', function(){
         var data = { inputId: "down", event: 'onkeydown', state:true };
-        player.onMove(socket.id, data);
-
-        data = { inputId: "down", event: 'onkeyup', state:false };
         player.onMove(socket.id, data, function(_player){
             var message = util.ResponseMessage(_player, data);
-            console.log(message);
-            assert.equal(message, "PLACE 1, 0, SOUTH");
+            assert.equal(message, "PLACE 2, 1, SOUTH");
         });
-    });
-
-    it('Mr Robot move to left 1 step', function(){
-        var data = { inputId: "left", event: 'onkeydown', state:true };
-        player.onMove(socket.id, data);
-
-        data = { inputId: "left", event: 'onkeyup', state:false };
-        player.onMove(socket.id, data, function(_player){
-            var message = util.ResponseMessage(_player, data);
-            console.log(message);
-            assert.equal(message, "PLACE 0, 0, WEST");
-        });
-        
     });
 
 });

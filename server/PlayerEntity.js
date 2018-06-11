@@ -5,11 +5,12 @@ var Entity = function(){
 		y:0,
 		spdX:0,
         spdY:0,
-        maxX:500,
-        maxY:500,
+        maxX:100,
+        maxY:100,
         minX: 0,
         minY: 0,
-		id:"",
+        id:"",
+        direction: 'west'
     };
     self.update = function(){
         self.updatePosition();
@@ -34,7 +35,7 @@ var Entity = function(){
 
     self.resetSpdXY = function(){
         self.spdX = 0;
-        self.spdY = 0;
+        self.spdY = 0;  
     };
     self.y = (self.y + self.maxY);
     return self;

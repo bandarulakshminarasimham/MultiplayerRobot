@@ -23,6 +23,12 @@
                             emitPlayerActions(sockets, _player, data);
                         });
                     }); 
+
+                    socket.on('directionChange', function(data){
+                        Player.onMove(socket.id, data, function(_player){
+                            emitPlayerActions(sockets, _player, data);
+                        });
+                    });
                 });
                
             });
@@ -47,7 +53,8 @@
                     id: _player.id, 
                     username: _player.username, 
                     direction: data.inputId, 
-                    color: _player.color
+                    color: _player.color,
+                    direction: _player.direction
                 });
             }
         };

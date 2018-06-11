@@ -1,13 +1,24 @@
 $(function(){
     var ctx;
     ctx = document.getElementById("ctx").getContext("2d");
-    ctx.font = '20px Arial';
     var socket = io();
     socket.on('newPlayer', function(data){
         ctx.clearRect(0,0,515,515);
         for (let i = 0; i < data.length; i++) {
-            ctx.fillStyle = data[i].color;
-            ctx.fillText(data[i].shortname , data[i].x, (data[i].y + 15));
+            var icon = '';
+                ctx.fillStyle = data[i].color;
+                ctx.font='20px FontAwesome';
+                if (data[i].direction === 'west') {
+                    icon = '\uf060';
+                } else if (data[i].direction === 'east') {
+                    icon = '\uf061';
+                } else if (data[i].direction === 'north'){
+                    icon = '\uf062';
+                } else if (data[i].direction === 'south'){
+                    icon = '\uf063';
+                } 
+                // up - f062 down - f063 
+                ctx.fillText(icon , data[i].x, (data[i].y + 15));
         }
     });
     
@@ -21,25 +32,41 @@ $(function(){
     });
 
     document.onkeydown = function (event) {
-        if (event.keyCode === 68 || event.keyCode === 39) {
+        if (event.keyCode === 39) { // right
             socket.emit('moveGame', { inputId: 'right', state: true, event: 'onkeydown' });
-        } else if (event.keyCode === 83 || event.keyCode === 40) {
+        } else if (event.keyCode === 40) {
             socket.emit('moveGame', { inputId: 'down', state: true, event: 'onkeydown' });
-        } else if (event.keyCode === 65 || event.keyCode === 37) { 
+        } else if (event.keyCode === 37) { 
             socket.emit('moveGame', { inputId: 'left', state: true, event: 'onkeydown' });
-        } else if (event.keyCode === 87 || event.keyCode === 38) {
+        } else if (event.keyCode === 38) {
             socket.emit('moveGame', { inputId: 'up', state: true, event: 'onkeydown' });
-        }
+        } else if (event.keyCode === 76) {
+            socket.emit('directionChange', { inputId: 'dleft', state: true, event: 'onkeydown' });
+        } else if (event.keyCode === 82) {
+            socket.emit('directionChange', { inputId: 'dright', state: true, event: 'onkeydown' });
+        } else if (event.keyCode === 85) {
+            socket.emit('directionChange', { inputId: 'dup', state: true, event: 'onkeydown' });
+        } else if (event.keyCode === 68) {
+            socket.emit('directionChange', { inputId: 'ddown', state: true, event: 'onkeydown' });
+        } 
     };
     document.onkeyup = function (event) {
-        if (event.keyCode === 68 || event.keyCode === 39) {
+        if (event.keyCode === 39) {
             socket.emit('moveGame', { inputId: 'right', state: false, event: 'onkeyup' });
-        } else if (event.keyCode === 83 || event.keyCode === 40) {
+        } else if (event.keyCode === 40) {
             socket.emit('moveGame', { inputId: 'down', state: false, event: 'onkeyup' });
-        } else if (event.keyCode === 65 || event.keyCode === 37) { 
+        } else if (event.keyCode === 37) { 
             socket.emit('moveGame', { inputId: 'left', state: false, event: 'onkeyup' });
-        } else if (event.keyCode === 87 || event.keyCode === 38) {
+        } else if (event.keyCode === 38) {
             socket.emit('moveGame', { inputId: 'up', state: false, event: 'onkeyup' });
+        } else if (event.keyCode === 76) {
+            socket.emit('directionChange', { inputId: 'dleft', state: false, event: 'onkeyup' });
+        } else if (event.keyCode === 82) {
+            socket.emit('directionChange', { inputId: 'dright', state: false, event: 'onkeyup' });
+        } else if (event.keyCode === 85) {
+            socket.emit('directionChange', { inputId: 'dup', state: false, event: 'onkeyup' });
+        } else if (event.keyCode === 68) {
+            socket.emit('directionChange', { inputId: 'ddown', state: false, event: 'onkeyup' });
         }
     };
 

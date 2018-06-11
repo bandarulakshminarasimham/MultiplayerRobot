@@ -31,13 +31,13 @@ module.exports = {
     },
     "ResponseMessage": function (_player, data) {
         var place = '';
-        if (data.inputId === 'left') {
+        if (data.inputId === 'west') {
             place = 'WEST';
-        } else if (data.inputId === 'right'){
+        } else if (data.inputId === 'east'){
             place = 'EAST';
-        } else if (data.inputId === 'up'){
+        } else if (data.inputId === 'north'){
             place = 'NORTH';
-        } else if (data.inputId === 'down'){
+        } else if (data.inputId === 'south'){
             place = 'SOUTH';
         } else {
             place = 'WEST';
